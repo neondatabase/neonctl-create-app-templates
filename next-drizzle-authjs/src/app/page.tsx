@@ -13,8 +13,8 @@ export default async function Home() {
 				{
 					// Show the sign out button if the user is signed in
 					session?.user ? (
-						<div>
-							<div>Hello {session.user.name}!</div>
+						<div className="space-y-3">
+							<p>Hello {session.user.name}!</p>
 							<SignOut />
 						</div>
 					) : (
@@ -64,7 +64,7 @@ export default async function Home() {
 							href="https://neon.tech/docs"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2"
+							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2 rounded-md"
 						>
 							{" "}
 							Neon Documentation{" "}
@@ -97,7 +97,7 @@ export default async function Home() {
 							href="https://nextjs.org/docs"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2"
+							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2 rounded-md"
 						>
 							{" "}
 							Next.js Documentation{" "}
@@ -130,7 +130,7 @@ export default async function Home() {
 							href="https://authjs.dev/"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2"
+							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2 rounded-md"
 						>
 							{" "}
 							Auth.js Documentation{" "}
@@ -163,7 +163,7 @@ export default async function Home() {
 							href="https://orm.drizzle.team/docs/overview"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="hover:text-[#00e599] text-[#eeeeee]"
+							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2 rounded-md"
 						>
 							{" "}
 							Drizzle ORM Documentation{" "}
