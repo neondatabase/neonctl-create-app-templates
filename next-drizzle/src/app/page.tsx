@@ -31,7 +31,12 @@ export default async function Home() {
 							alt="Neon logo"
 							loading="eager"
 						/>
-						<a href="/" className="hover:text-[#00e599] text-[#eeeeee]">
+						<a
+							href="https://neon.tech/docs"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2"
+						>
 							{" "}
 							Neon Documentation{" "}
 							<svg
@@ -59,7 +64,12 @@ export default async function Home() {
 							alt="Next.js logo"
 							loading="eager"
 						/>
-						<a href="/" className="hover:text-[#00e599] text-[#eeeeee]">
+						<a
+							href="https://nextjs.org/docs"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2"
+						>
 							{" "}
 							Next.js Documentation{" "}
 							<svg
@@ -87,7 +97,12 @@ export default async function Home() {
 							alt="Drizzle ORM logo"
 							loading="eager"
 						/>
-						<a href="/" className="hover:text-[#00e599] text-[#eeeeee]">
+						<a
+							href="https://orm.drizzle.team/docs/overview"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:text-[#00e599] text-[#eeeeee]"
+						>
 							{" "}
 							Drizzle ORM Documentation{" "}
 							<svg
@@ -110,7 +125,10 @@ export default async function Home() {
 
 				<p className="mt-16">
 					Need help? Reach out in the{" "}
-					<a href="/" className="hover:text-[#00e599] text-[#eeeeee]">
+					<a
+						href="/"
+						className="hover:text-[#00e599] text-[#eeeeee] ring-offset-[#111111] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2"
+					>
 						Neon Discord Community{" "}
 						<svg
 							className="inline w-4 h-4 mb-2 -ml-1 stroke-[#00e599]"
