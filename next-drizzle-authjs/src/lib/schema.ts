@@ -54,9 +54,11 @@ export const passwords = pgTable("passwords", {
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  // The salt is automatically stored with the password. Learn more here:
+  // https://heynode.com/blog/2020-04/salt-and-hash-passwords-bcrypt/
   password: text("password").notNull(),
-  salt: text("salt").notNull(),
-  iterations: integer("iterations").notNull(),
+  emailVerified: timestamp('email_verified', { mode: 'date' }),
+  image: text('image'),
 });
 
 // necessary for database session strategy, as opposed to the JWT session strategy
