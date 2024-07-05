@@ -21,8 +21,10 @@ export async function POST(request: Request): Promise<Response> {
 		});
 	}
 
+
 	const userId = v4();
 	const saltAndHash = await saltAndHashPassword(password);
+
 
 	await db.insert(schema.users).values({
 		id: userId,
@@ -34,6 +36,12 @@ export async function POST(request: Request): Promise<Response> {
 		userId,
 		password: saltAndHash.hash,
 	});
+
+  await db.insert(schema.passwords).values({
+    userId,
+    password: saltAndHash.hash,
+  });
+
 
 	return NextResponse.redirect(new URL("/", request.url));
 }
