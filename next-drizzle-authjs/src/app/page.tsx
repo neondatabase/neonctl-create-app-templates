@@ -4,6 +4,8 @@ import { auth } from "@/lib/auth";
 import Image from "next/image";
 import Link from "next/link";
 
+export const runtime = 'edge';
+
 export default async function Home() {
 	const session = await auth();
 
