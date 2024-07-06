@@ -109,6 +109,9 @@ class InvalidCredentials extends AuthError {
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   basePath: "/auth",
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
