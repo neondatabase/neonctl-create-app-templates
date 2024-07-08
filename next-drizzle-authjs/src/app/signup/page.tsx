@@ -1,3 +1,5 @@
+import { AuthButton } from "@/components/auth/auth-button";
+
 export default function SignUpPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#111111] px-6 text-[#b4b4b4]">
@@ -47,13 +49,15 @@ export default function SignUpPage() {
               required
             />
           </div>
-          <button
-            type="submit"
-            className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-lg border border-[#3A3A3A] bg-[#111111] px-4 py-2 text-sm font-medium text-[#B4B4B4] ring-offset-[#111111] transition-colors hover:border-[#484848] hover:bg-[#2A2A2A] hover:text-[#EEEEEE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-          >
-            Sign Up
-          </button>
+          <AuthButton>Sign up</AuthButton>{" "}
         </form>
+
+        <div className="mt-4 text-sm text-[#b4b4b4]">
+          Already have an account?{" "}
+          <a href="/signin" className="text-[#00e599] hover:underline">
+            Sign in
+          </a>
+        </div>
       </div>
     </div>
   );
