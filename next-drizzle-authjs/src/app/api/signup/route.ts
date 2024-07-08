@@ -14,7 +14,7 @@ export async function POST(request: Request): Promise<Response> {
 
   if (
     typeof password !== "string" ||
-    password.length < 6 ||
+    password.length < 1 ||
     password.length > 255 ||
     typeof email !== "string" ||
     typeof name !== "string"
