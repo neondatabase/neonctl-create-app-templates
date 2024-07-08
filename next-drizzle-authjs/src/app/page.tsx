@@ -190,7 +190,9 @@ export default async function Home() {
         <p className="mt-16">
           Need help? Reach out in the{" "}
           <a
-            href="/"
+            href="https://neon.tech/discord"
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-md text-[#eeeeee] ring-offset-[#111111] transition-colors hover:text-[#00e599] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e599] focus-visible:ring-offset-2"
           >
             Neon Discord Community{" "}
