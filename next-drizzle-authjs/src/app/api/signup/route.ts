@@ -2,7 +2,6 @@ import { v4 } from "uuid";
 import { db } from "@/lib/db";
 import * as schema from "@/lib/schema";
 import { hashPassword } from "@/lib/auth";
-import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 
 export const runtime = "edge";

@@ -120,7 +120,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        console.log(credentials);
         if (typeof credentials.email !== "string") {
           throw new InvalidCredentials();
         }
