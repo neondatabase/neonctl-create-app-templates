@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import * as schema from "@/lib/schema";
 import { hashPassword } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import { eq } from "drizzle-orm";
 
 export const runtime = "edge";
 
@@ -11,6 +12,7 @@ export async function POST(request: Request): Promise<Response> {
   const email = formData.get("email");
   const password = formData.get("password");
   const name = formData.get("name");
+
   if (
     typeof password !== "string" ||
     password.length < 6 ||
@@ -18,8 +20,21 @@ export async function POST(request: Request): Promise<Response> {
     typeof email !== "string" ||
     typeof name !== "string"
   ) {
-    return new Response("Invalid password", {
+    return new Response(null, {
       status: 400,
+      statusText: "Invalid password",
+    });
+  }
+
+  const emailExists = await db
+    .select()
+    .from(schema.users)
+    .where(eq(schema.users.email, email));
+
+  if (emailExists.length > 0) {
+    return new Response(null, {
+      status: 400,
+      statusText: "An account with this email already exists",
     });
   }
 
@@ -37,5 +52,5 @@ export async function POST(request: Request): Promise<Response> {
     password: passwordHash,
   });
 
-  return NextResponse.redirect(new URL("/", request.url));
+  return new Response(null, { status: 200 });
 }

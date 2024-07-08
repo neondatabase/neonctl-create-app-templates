@@ -1,14 +1,40 @@
+"use client";
+
+import React from "react";
 import { AuthButton } from "@/components/auth/auth-button";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
+  const router = useRouter();
+
+  const [error, setError] = React.useState<string | undefined>();
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#111111] px-6 text-[#b4b4b4]">
       <div className="w-full max-w-md">
         <h1 className="mb-3 text-2xl font-medium text-[#eeeeee]">Sign up</h1>
         <form
           className="flex flex-col gap-3"
-          method="post"
-          action="/api/signup"
+          action={async (formData) => {
+            try {
+              const res = await fetch("/api/signup", {
+                method: "POST",
+                body: formData,
+              });
+
+              if (!res.ok) {
+                throw new Error(res.statusText);
+              }
+
+              router.push("/");
+            } catch (error: unknown) {
+              if (error instanceof Error) {
+                setError(error.message);
+              } else {
+                setError("Something went wrong");
+              }
+            }
+          }}
         >
           <div className="space-y-1">
             <label className="text-sm" htmlFor="name">
@@ -49,6 +75,7 @@ export default function SignUpPage() {
               required
             />
           </div>
+          {error ? <p className="text-sm text-red-500">{error}</p> : null}
           <AuthButton>Sign up</AuthButton>{" "}
         </form>
 
