@@ -19,9 +19,8 @@ export async function POST(request: Request): Promise<Response> {
     typeof email !== "string" ||
     typeof name !== "string"
   ) {
-    return new Response(null, {
+    return new Response(JSON.stringify({ message: "Invalid password" }), {
       status: 400,
-      statusText: "Invalid password",
     });
   }
 
@@ -31,10 +30,12 @@ export async function POST(request: Request): Promise<Response> {
     .where(eq(schema.users.email, email));
 
   if (emailExists.length > 0) {
-    return new Response(null, {
-      status: 400,
-      statusText: "An account with this email already exists",
-    });
+    return new Response(
+      JSON.stringify({ message: "An account with this email already exists" }),
+      {
+        status: 400,
+      },
+    );
   }
 
   const userId = v4();
