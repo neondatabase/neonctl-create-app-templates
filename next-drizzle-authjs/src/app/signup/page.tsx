@@ -17,13 +17,14 @@ export default function SignUpPage() {
           className="flex flex-col gap-3"
           action={async (formData) => {
             try {
-              const res = await fetch("/api/signup", {
+              const response = await fetch("/api/signup", {
                 method: "POST",
                 body: formData,
               });
 
-              if (!res.ok) {
-                throw new Error(res.statusText);
+              if (!response.ok) {
+                const responseBody = await response.json();
+                throw new Error(responseBody.message || "Unknown error");
               }
 
               router.push("/");
