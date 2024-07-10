@@ -21,7 +21,6 @@ export async function POST(request: Request): Promise<Response> {
   ) {
     return new Response(JSON.stringify({ message: "Invalid password" }), {
       status: 400,
-      statusText: "Invalid password",
     });
   }
 
@@ -35,7 +34,6 @@ export async function POST(request: Request): Promise<Response> {
       JSON.stringify({ message: "An account with this email already exists" }),
       {
         status: 400,
-        statusText: "An account with this email already exists",
       },
     );
   }
