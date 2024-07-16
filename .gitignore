@@ -2,3 +2,4 @@ package-lock.json
 wrangler.toml
 .dev.vars
 .env.local
+.env.example
