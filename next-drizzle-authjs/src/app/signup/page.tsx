@@ -4,8 +4,6 @@ import React from "react";
 import { AuthButton } from "@/components/auth/auth-button";
 import { useRouter } from "next/navigation";
 
-export const runtime = "edge";
-
 export default function SignUpPage() {
   const router = useRouter();
 
