@@ -27,7 +27,7 @@ export async function POST(request: Request): Promise<Response> {
   const emailExists = await db
     .select()
     .from(schema.users)
-    .where(eq(schema.users.email, email));
+    .where(eq(schema.lower(schema.users.email), email.toLowerCase()));
 
   if (emailExists.length > 0) {
     return new Response(

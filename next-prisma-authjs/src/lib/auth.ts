@@ -2,6 +2,7 @@ import NextAuth, { AuthError } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/db";
+import type { User } from "@prisma/client";
 
 // https://lord.technology/2024/02/21/hashing-passwords-on-cloudflare-workers.html
 export async function hashPassword(
@@ -64,7 +65,40 @@ async function getUserFromDb(
   email: string,
   passwordAttempt: string,
 ): Promise<User> {
-  throw new Error("not implemented");
+  const users = await prisma.user.findMany({
+    where: {
+      email: {
+        equals: email,
+        mode: "insensitive",
+      },
+    },
+  });
+  if (!users || users.length === 0) {
+    throw new Error(`User with email "${email}" not found`);
+  }
+  if (users.length > 1) {
+    throw new Error(`Multiple users with email "${email}" found`);
+  }
+
+  const user = users[0];
+
+  const passwords = await prisma.password.findMany({
+    where: {
+      userId: user.id,
+    },
+  });
+  if (!passwords || passwords.length === 0) {
+    throw new Error(`Password for user with id "${user.id}" not found`);
+  }
+  if (passwords.length > 1) {
+    throw new Error(`Multiple passwords for user with id "${user.id}" found`);
+  }
+  const password = passwords[0];
+
+  if (await isPasswordCorrect(password.password, passwordAttempt)) {
+    return user;
+  }
+  throw new Error("Incorrect password");
 }
 
 export const INVALID_CREDENTIALS_ERROR_TYPE = "CredentialsSignin";
@@ -82,6 +116,9 @@ export class InvalidCredentials extends AuthError {
 export const { handlers, signIn, signOut, auth } = NextAuth({
   basePath: "/auth",
   adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.

@@ -69,7 +69,7 @@ async function getUserFromDb(
   const users = await db
     .select()
     .from(schema.users)
-    .where(eq(schema.users.email, email));
+    .where(eq(schema.lower(schema.users.email), email.toLowerCase()));
   if (!users || users.length === 0) {
     throw new Error(`User with email "${email}" not found`);
   }
