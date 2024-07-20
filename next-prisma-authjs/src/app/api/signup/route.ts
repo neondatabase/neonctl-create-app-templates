@@ -2,8 +2,6 @@ import { v4 } from "uuid";
 import { hashPassword } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
-export const runtime = "edge";
-
 export async function POST(request: Request): Promise<Response> {
   const formData = await request.formData();
   const email = formData.get("email");
