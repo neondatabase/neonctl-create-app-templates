@@ -8,6 +8,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { AuthButton } from "@/components/auth/auth-button";
 
+export const runtime = "edge";
+
 export default async function SignInPage({
   searchParams,
 }: {
