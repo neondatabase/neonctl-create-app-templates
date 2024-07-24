@@ -1,4 +1,4 @@
-import type { InferSelectModel } from "drizzle-orm";
+import { sql, type InferSelectModel, type SQL } from "drizzle-orm";
 import {
   boolean,
   timestamp,
@@ -6,6 +6,7 @@ import {
   text,
   primaryKey,
   integer,
+  AnyPgColumn,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
@@ -106,3 +107,8 @@ export const authenticators = pgTable(
     }),
   }),
 );
+
+// custom lower function
+export function lower(email: AnyPgColumn): SQL {
+  return sql`lower(${email})`;
+}

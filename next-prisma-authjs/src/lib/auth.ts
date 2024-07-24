@@ -1,9 +1,8 @@
 import NextAuth, { AuthError } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { db } from "@/lib/db";
-import * as schema from "@/lib/schema";
-import { eq } from "drizzle-orm";
-import type { User } from "@/lib/schema";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "@/lib/db";
+import type { User } from "@prisma/client";
 
 // https://lord.technology/2024/02/21/hashing-passwords-on-cloudflare-workers.html
 export async function hashPassword(
@@ -66,10 +65,14 @@ async function getUserFromDb(
   email: string,
   passwordAttempt: string,
 ): Promise<User> {
-  const users = await db
-    .select()
-    .from(schema.users)
-    .where(eq(schema.lower(schema.users.email), email.toLowerCase()));
+  const users = await prisma.user.findMany({
+    where: {
+      email: {
+        equals: email,
+        mode: "insensitive",
+      },
+    },
+  });
   if (!users || users.length === 0) {
     throw new Error(`User with email "${email}" not found`);
   }
@@ -79,10 +82,11 @@ async function getUserFromDb(
 
   const user = users[0];
 
-  const passwords = await db
-    .select()
-    .from(schema.passwords)
-    .where(eq(schema.passwords.userId, user.id));
+  const passwords = await prisma.password.findMany({
+    where: {
+      userId: user.id,
+    },
+  });
   if (!passwords || passwords.length === 0) {
     throw new Error(`Password for user with id "${user.id}" not found`);
   }
@@ -111,6 +115,10 @@ export class InvalidCredentials extends AuthError {
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   basePath: "/auth",
+  adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
